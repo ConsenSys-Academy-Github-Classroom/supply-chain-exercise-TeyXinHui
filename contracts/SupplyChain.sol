@@ -113,8 +113,8 @@ contract SupplyChain {
      sku: skuCount, 
      price: _price, 
      state: State.ForSale, 
-     seller: payable(msg.sender), 
-     buyer: payable(address(0))
+     seller: msg.sender, 
+     buyer: address(0)
     });
     skuCount = skuCount + 1;
     emit LogForSale(skuCount);
@@ -139,7 +139,7 @@ contract SupplyChain {
    {
     bool sendValue = items[sku].seller.send(items[sku].price);
     require(sendValue, "Failed to send!");
-    items[sku].buyer = payable(msg.sender);
+    items[sku].buyer = msg.sender;
     items[sku].state = State.Sold;
     emit LogSold(sku);
    }
